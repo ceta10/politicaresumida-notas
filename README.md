@@ -22,6 +22,37 @@ En uno o dos minutos la nota aparece en la sección del país (el sitio puede ta
 5. **Fotos** pegadas dentro del Word. Debajo de cada una, el **epígrafe** y en el renglón siguiente el **crédito**, empezando con `Foto:` (autor, sitio y licencia). Solo fotos con licencia libre (por ejemplo, de Wikimedia Commons).
 6. Al final, opcional: un renglón **Fuentes consultadas** y debajo la lista.
 
+## Notas en texto (para Grok u otro asistente)
+
+También se puede subir la nota como archivo de texto `.md` en `entrada/`, con la misma estructura que el Word:
+
+```
+**PAÍS · SECCIÓN**
+
+**Título**
+
+Bajada.
+
+Párrafo...
+
+**Subtítulo**
+
+Párrafo...
+
+![](https://commons.wikimedia.org/wiki/Special:FilePath/NOMBRE_DEL_ARCHIVO.jpg?width=1400)
+
+Epígrafe de la foto.
+
+Foto: autor, vía Wikimedia Commons, licencia CC BY-SA 4.0.
+
+**Fuentes consultadas**
+
+- Fuente 1
+- Fuente 2
+```
+
+Las fotos se descargan solas desde el enlace.
+
 ## Archivos
 
 - `propias.json`: las notas publicadas (lo lee el sitio). No hace falta tocarlo.
