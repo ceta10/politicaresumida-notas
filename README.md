@@ -11,7 +11,7 @@ Acá viven las notas propias que se publican en [politicaresumida.com.ar](https:
 En uno o dos minutos la nota aparece en la sección del país (el sitio puede tardar hasta 5 minutos más en mostrarla). El Word se mueve solo a `procesadas/`.
 
 - **Corregir una nota:** subí el Word corregido **con el mismo nombre de archivo**. Reemplaza la anterior.
-- **Si algo falla:** el Word pasa a `errores/` junto con un `.txt` que explica qué corregir, y GitHub te manda un mail.
+- **Si algo falla:** el archivo pasa a `errores/` junto con un `.txt` que explica qué corregir, y GitHub te manda un mail.
 
 ## Cómo tiene que ser el Word
 
@@ -19,7 +19,7 @@ En uno o dos minutos la nota aparece en la sección del país (el sitio puede ta
 2. **Título** (segundo renglón, en negrita).
 3. **Bajada**: un párrafo que resume la nota.
 4. **Texto**, con subtítulos en negrita o con estilo de título.
-5. **Fotos** pegadas dentro del Word. Debajo de cada una, el **epígrafe** y en el renglón siguiente el **crédito**, empezando con `Foto:` (autor, sitio y licencia). Solo fotos con licencia libre (por ejemplo, de Wikimedia Commons).
+5. **Fotos** pegadas dentro del Word. Debajo de cada una, el **epígrafe** y, si querés, en el renglón siguiente el **crédito**, empezando con `Foto:`.
 6. Al final, opcional: un renglón **Fuentes consultadas** y debajo la lista.
 
 ## Notas en texto (para Grok u otro asistente)
@@ -39,11 +39,11 @@ Párrafo...
 
 Párrafo...
 
-![](https://commons.wikimedia.org/wiki/Special:FilePath/NOMBRE_DEL_ARCHIVO.jpg?width=1400)
+![](ENLACE_DIRECTO_A_LA_FOTO.jpg)
 
 Epígrafe de la foto.
 
-Foto: autor, vía Wikimedia Commons, licencia CC BY-SA 4.0.
+Foto: crédito (opcional).
 
 **Fuentes consultadas**
 

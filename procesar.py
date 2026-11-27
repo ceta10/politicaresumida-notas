@@ -109,8 +109,6 @@ def procesar(docx, previas):
                 cred = limpiar(bloques[i]); i += 1
             if not cred and re.search(r'\b(foto|wikimedia|licencia|CC BY)\b', epi, re.I) and re.match(r'(foto|imagen)', epi, re.I):
                 epi, cred = '', epi
-            if not cred:
-                raise ValueError(f'La foto {len(fotos)+1} no tiene crédito. Debajo del epígrafe tiene que ir un renglón que empiece con "Foto:" (autor, sitio y licencia).')
             if re.match(r'https?://', src):
                 req = urllib.request.Request(src, headers={'User-Agent': 'PoliticaResumida/1.0 (https://politicaresumida.com.ar)'})
                 archivo = os.path.join(tmp, f'web-{len(fotos)}')
