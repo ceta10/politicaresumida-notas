@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Convierte los Word (.docx) de la carpeta entrada/ en notas del sitio.
+"""Convierte los Word (.docx) y los textos (.md) de la carpeta entrada/ en notas del sitio.
 
 Lee cada .docx de entrada/, arma la nota (título, bajada, fotos con epígrafe
 y crédito, subtítulos, texto y fuentes), guarda las fotos en img/, actualiza
 propias.json y mueve el Word a procesadas/. Si un Word no se puede leer, lo
 mueve a errores/ con un .txt que explica el problema y termina con error.
 """
-import datetime, glob, json, os, re, shutil, subprocess, sys, tempfile, unicodedata
+import datetime, glob, json, os, re, shutil, subprocess, sys, tempfile, unicodedata, urllib.request
 from PIL import Image
 
 RAIZ = os.path.dirname(os.path.abspath(__file__))
@@ -69,7 +69,8 @@ def procesar(docx, previas):
     base = os.path.splitext(os.path.basename(docx))[0]
     nid = slug(base) or 'nota'
     tmp = tempfile.mkdtemp()
-    md = subprocess.run(['pandoc', docx, '-t', 'markdown-smart', '--wrap=none', '--extract-media=' + tmp],
+    fmt = ['-f', 'markdown'] if docx.lower().endswith('.md') else []
+    md = subprocess.run(['pandoc', docx] + fmt + ['-t', 'markdown-smart', '--wrap=none', '--extract-media=' + tmp],
                         capture_output=True, text=True, check=True).stdout
     bloques = [b.strip() for b in re.split(r'\n\s*\n', md) if b.strip()]
 
@@ -109,6 +110,12 @@ def procesar(docx, previas):
                 epi, cred = '', epi
             if not cred:
                 raise ValueError(f'La foto {len(fotos)+1} no tiene crédito. Debajo del epígrafe tiene que ir un renglón que empiece con "Foto:" (autor, sitio y licencia).')
+            if re.match(r'https?://', src):
+                req = urllib.request.Request(src, headers={'User-Agent': 'PoliticaResumida/1.0 (https://politicaresumida.com.ar)'})
+                archivo = os.path.join(tmp, f'web-{len(fotos)}')
+                with urllib.request.urlopen(req, timeout=60) as r, open(archivo, 'wb') as out:
+                    out.write(r.read())
+                src = archivo
             im = Image.open(src if os.path.isabs(src) else os.path.join(tmp, src)).convert('RGB')
             w, h = im.size
             im.thumbnail((1400, 1400))
@@ -135,7 +142,8 @@ def main():
     notas = json.load(open(NOTAS, encoding='utf-8')) if os.path.exists(NOTAS) else []
     os.makedirs(os.path.join(RAIZ, 'img'), exist_ok=True)
     errores = 0
-    for docx in sorted(glob.glob(os.path.join(RAIZ, 'entrada', '*.docx'))):
+    archivos = glob.glob(os.path.join(RAIZ, 'entrada', '*.docx')) + glob.glob(os.path.join(RAIZ, 'entrada', '*.md'))
+    for docx in sorted(archivos):
         nombre = os.path.basename(docx)
         try:
             n = procesar(docx, notas)
