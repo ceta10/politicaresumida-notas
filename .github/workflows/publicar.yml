@@ -1,0 +1,35 @@
+name: Publicar notas
+on:
+  push:
+    paths: ['entrada/**']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: publicar
+  cancel-in-progress: false
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar herramientas
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq pandoc
+          pip install --quiet pillow
+      - name: Convertir los Word de entrada/
+        id: conv
+        run: python3 procesar.py
+        continue-on-error: true
+      - name: Guardar y publicar
+        run: |
+          git config user.name "Publicador de notas"
+          git config user.email "actions@github.com"
+          git add -A
+          if git diff --cached --quiet; then echo "Nada nuevo"; exit 0; fi
+          git commit -m "Publicar notas de entrada/"
+          git pull --rebase origin main && git push origin main
+      - name: Avisar si hubo errores
+        if: steps.conv.outcome == 'failure'
+        run: |
+          echo "Algún Word no se pudo publicar. Mirá la carpeta errores/ del repositorio." && exit 1
