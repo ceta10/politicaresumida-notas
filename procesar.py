@@ -115,7 +115,11 @@ def procesar(docx, previas):
                 with urllib.request.urlopen(req, timeout=60) as r, open(archivo, 'wb') as out:
                     out.write(r.read())
                 src = archivo
-            im = Image.open(src if os.path.isabs(src) else os.path.join(tmp, src)).convert('RGB')
+            im = Image.open(src if os.path.isabs(src) else os.path.join(tmp, src))
+            if im.mode in ('RGBA', 'LA', 'P'):
+                im = im.convert('RGBA'); fondo = Image.new('RGB', im.size, 'white'); fondo.paste(im, mask=im.split()[3]); im = fondo
+            else:
+                im = im.convert('RGB')
             w, h = im.size
             im.thumbnail((1400, 1400))
             nombre = f'img/{nid}-{len(fotos)+1}.jpg'
