@@ -70,7 +70,8 @@ def procesar(docx, previas):
     nid = slug(base) or 'nota'
     tmp = tempfile.mkdtemp()
     fmt = ['-f', 'markdown'] if docx.lower().endswith('.md') else []
-    md = subprocess.run(['pandoc', docx] + fmt + ['-t', 'markdown-smart', '--wrap=none', '--extract-media=' + tmp],
+    extraer = [] if fmt else ['--extract-media=' + tmp]
+    md = subprocess.run(['pandoc', docx] + fmt + ['-t', 'markdown-smart', '--wrap=none'] + extraer,
                         capture_output=True, text=True, check=True).stdout
     bloques = [b.strip() for b in re.split(r'\n\s*\n', md) if b.strip()]
 
@@ -152,7 +153,7 @@ def main():
             os.makedirs(os.path.join(RAIZ, 'errores'), exist_ok=True)
             shutil.move(docx, os.path.join(RAIZ, 'errores', nombre))
             with open(os.path.join(RAIZ, 'errores', nombre + '.txt'), 'w', encoding='utf-8') as f:
-                f.write(f'No se pudo publicar {nombre}.\n\nMotivo: {e}\n\nCorregí el Word y volvé a subirlo a la carpeta entrada.\n')
+                f.write(f'No se pudo publicar {nombre}.\n\nMotivo: {e}\n\nCorregí el archivo y volvé a subirlo a la carpeta entrada.\n')
             print(f'ERROR {nombre}: {e}')
             continue
         notas = [x for x in notas if x['id'] != n['id']]

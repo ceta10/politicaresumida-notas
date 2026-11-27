@@ -1,5 +1,0 @@
-No se pudo publicar reino-unido-ley-acuerdos-ue.md.
-
-Motivo: cannot identify image file '/tmp/tmpwa276ofn/7080820a9e91cc7632ef9030bd4d3e9bb43c3819.txt'
-
-Corregí el Word y volvé a subirlo a la carpeta entrada.
