@@ -1,7 +1,7 @@
 name: Publicar notas
+# Ya no publica solo: las notas quedan en espera en entrada/ hasta que Claude las revisa
+# y las publica cuando Matías lo pide. Se puede correr a mano desde la pestaña Actions.
 on:
-  push:
-    paths: ['entrada/**']
   workflow_dispatch:
 permissions:
   contents: write

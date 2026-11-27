@@ -8,7 +8,7 @@ Acá viven las notas propias que se publican en [politicaresumida.com.ar](https:
 2. Tocá **Add file → Upload files** y arrastrá el Word (`.docx`) de la nota.
 3. Tocá **Commit changes**.
 
-En uno o dos minutos la nota aparece en la sección del país (el sitio puede tardar hasta 5 minutos más en mostrarla). El Word se mueve solo a `procesadas/`.
+La nota queda **en espera** en `entrada/`: no se publica sola. Cuando Matías pide publicar, Claude la revisa (datos, fotos y formato), avisa si encuentra algo y la publica. Después el archivo pasa a `procesadas/` y la nota aparece en la sección del país en unos minutos.
 
 - **Corregir una nota:** subí el Word corregido **con el mismo nombre de archivo**. Reemplaza la anterior.
 - **Si algo falla:** el archivo pasa a `errores/` junto con un `.txt` que explica qué corregir, y GitHub te manda un mail.
