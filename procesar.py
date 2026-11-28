@@ -87,6 +87,9 @@ def procesar(docx, previas):
     bajada = ''
     if i < len(bloques) and not imagen(bloques[i]) and not bloques[i].startswith('#'):
         bajada = limpiar(bloques[i]); i += 1
+    autor = ''
+    if i < len(bloques) and re.match(r'(por|escribe|firma)\s*:?\s+\S', limpiar(bloques[i]), re.I) and len(limpiar(bloques[i])) < 80:
+        autor = re.sub(r'^(por|escribe|firma)\s*:?\s+', '', limpiar(bloques[i]), flags=re.I); i += 1
 
     fotos, partes, fuentes = [], [], []
     en_fuentes = False
@@ -138,7 +141,7 @@ def procesar(docx, previas):
     previa = next((n for n in previas if n['id'] == nid), None)
     hoy = (datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(hours=3)).strftime('%Y-%m-%d')
     return {'id': nid, 'p': pais, 'f': previa['f'] if previa else hoy, 'seccion': seccion(pais, volanta),
-            'titulo': titulo, 'bajada': bajada, 'fotos': fotos, 'texto': '\n\n'.join(partes), 'fuentes': fuentes}
+            'titulo': titulo, 'bajada': bajada, 'autor': autor, 'fotos': fotos, 'texto': '\n\n'.join(partes), 'fuentes': fuentes}
 
 
 def main():

@@ -18,6 +18,7 @@ La nota queda **en espera** en `entrada/`: no se publica sola. Cuando Matías pi
 1. **Volanta** (primer renglón, en negrita): `PAÍS · SECCIÓN`, por ejemplo `REINO UNIDO · RELACIÓN CON EUROPA`. El país define en qué sección del sitio aparece.
 2. **Título** (segundo renglón, en negrita).
 3. **Bajada**: un párrafo que resume la nota.
+   Opcional, justo debajo: un renglón `Por Nombre Apellido` con la firma del autor.
 4. **Texto**, con subtítulos en negrita o con estilo de título.
 5. **Fotos** pegadas dentro del Word. Debajo de cada una, el **epígrafe** y, si querés, en el renglón siguiente el **crédito**, empezando con `Foto:`.
 6. Al final, opcional: un renglón **Fuentes consultadas** y debajo la lista.
